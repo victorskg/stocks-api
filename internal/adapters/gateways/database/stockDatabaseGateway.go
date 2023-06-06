@@ -55,5 +55,14 @@ func (g StockDatabaseGateway) FindByTicker(ticker string) (*domain.Stock, error)
 }
 
 func (g StockDatabaseGateway) UpdateStock(stock *domain.Stock) (*domain.Stock, error) {
-	return nil, nil
+	filter := bson.M{"ticker": stock.Ticker()}
+	update := bson.M{"$set": bson.M{"patrimony": stock.Patrimony(), "bookValue": stock.BookValue(), "pvp": stock.Pvp()}}
+
+	_, err := g.collection.UpdateOne(context.TODO(), filter, update)
+	if err != nil {
+		fmt.Printf("Error updating stock %s. Caused by: %s", stock.Ticker(), err.Error())
+		return nil, err
+	}
+
+	return stock, nil
 }

@@ -18,17 +18,17 @@ type Stock struct {
 	Pvp           float32      `bson:"pvp"`
 }
 
-func NewStock(ticker string, name string, SType domain.SType, category string, subCategory string,
-	administrator string, bookValue float32, patrimony float64, pvp float32) *Stock {
+func NewStock(stock domain.Stock) *Stock {
 	return &Stock{
-		Ticker:        ticker,
-		Name:          name,
-		SType:         SType,
-		Category:      category,
-		SubCategory:   subCategory,
-		Administrator: administrator,
-		BookValue:     bookValue,
-		Patrimony:     patrimony,
-		Pvp:           pvp,
+		ID:            stock.Id(),
+		Ticker:        stock.Ticker(),
+		Name:          stock.Name(),
+		SType:         stock.SType(),
+		Category:      stock.Category(),
+		SubCategory:   stock.SubCategory(),
+		Administrator: stock.Administrator(),
+		BookValue:     stock.BookValue(),
+		Patrimony:     stock.Patrimony(),
+		Pvp:           stock.Pvp(),
 	}
 }

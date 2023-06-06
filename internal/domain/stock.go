@@ -81,9 +81,10 @@ func (s *Stock) HistoricalPrices() []Price {
 }
 
 // NewStock TODO Add validations
-func NewStock(ticker string, name string, sType SType, category string, subCategory string,
+func NewStock(id uuid.UUID, ticker string, name string, sType SType, category string, subCategory string,
 	administrator string, bookValue float32, patrimony float64, pvp float32) *Stock {
 	return &Stock{
+		id:            id,
 		ticker:        ticker,
 		name:          name,
 		sType:         sType,
