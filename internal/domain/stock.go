@@ -1,6 +1,9 @@
 package stock
 
-import "time"
+import (
+	"github.com/google/uuid"
+	"time"
+)
 
 type SType string
 
@@ -15,6 +18,7 @@ type Price struct {
 }
 
 type Stock struct {
+	id               uuid.UUID
 	ticker           string
 	name             string
 	sType            SType
@@ -26,6 +30,10 @@ type Stock struct {
 	pvp              float32
 	dividends        []Dividend
 	historicalPrices []Price
+}
+
+func (s *Stock) Id() uuid.UUID {
+	return s.id
 }
 
 func (s *Stock) Ticker() string {
@@ -72,6 +80,7 @@ func (s *Stock) HistoricalPrices() []Price {
 	return s.historicalPrices
 }
 
+// NewStock TODO Add validations
 func NewStock(ticker string, name string, sType SType, category string, subCategory string,
 	administrator string, bookValue float32, patrimony float64, pvp float32) *Stock {
 	return &Stock{

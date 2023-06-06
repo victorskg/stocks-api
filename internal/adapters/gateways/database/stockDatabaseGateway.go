@@ -3,6 +3,7 @@ package database
 import (
 	"context"
 	"fmt"
+
 	"github.com/victorskg/stocks-api/internal/adapters/gateways/database/entities"
 	"github.com/victorskg/stocks-api/internal/adapters/gateways/database/mappers"
 	domain "github.com/victorskg/stocks-api/internal/domain"
@@ -12,7 +13,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-const collection = "stocks"
+const stocksCollection = "stocks"
 
 type StockDatabaseGateway struct {
 	mapper     mappers.Mapper[entities.Stock, domain.Stock]
@@ -21,7 +22,7 @@ type StockDatabaseGateway struct {
 
 func NewStockDatabaseGateway(connection mongodb.Connection) gateways.StockGateway {
 	return StockDatabaseGateway{
-		collection: connection.Collection(collection),
+		collection: connection.Collection(stocksCollection),
 		mapper:     mappers.StockMapper(),
 	}
 }
