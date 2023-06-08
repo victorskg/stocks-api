@@ -3,7 +3,9 @@ module github.com/victorskg/stocks-api
 go 1.20
 
 require (
+	github.com/go-chi/chi/v5 v5.0.8
 	github.com/google/uuid v1.3.0
+	github.com/victorskg/my-wallet v0.0.0-20230519121744-ec0ce394abc5
 	go.mongodb.org/mongo-driver v1.11.6
 )
 

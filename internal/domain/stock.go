@@ -80,6 +80,22 @@ func (s *Stock) HistoricalPrices() []Price {
 	return s.historicalPrices
 }
 
+// NewStockWithoutID TODO Add validations
+func NewStockWithoutID(ticker string, name string, sType SType, category string, subCategory string,
+	administrator string, bookValue float32, patrimony float64, pvp float32) *Stock {
+	return &Stock{
+		ticker:        ticker,
+		name:          name,
+		sType:         sType,
+		category:      category,
+		subCategory:   subCategory,
+		administrator: administrator,
+		bookValue:     bookValue,
+		patrimony:     patrimony,
+		pvp:           pvp,
+	}
+}
+
 // NewStock TODO Add validations
 func NewStock(id uuid.UUID, ticker string, name string, sType SType, category string, subCategory string,
 	administrator string, bookValue float32, patrimony float64, pvp float32) *Stock {
@@ -95,6 +111,25 @@ func NewStock(id uuid.UUID, ticker string, name string, sType SType, category st
 		patrimony:     patrimony,
 		pvp:           pvp,
 	}
+}
+
+func (s *Stock) AddHistoricalPrices(p ...Price) []Price {
+	uniquePrices := make(map[Price]bool)
+	for _, value := range s.historicalPrices {
+		if !uniquePrices[value] {
+			uniquePrices[value] = true
+		}
+	}
+
+	var pricesToAdd []Price
+	for _, value := range p {
+		if !uniquePrices[value] {
+			pricesToAdd = append(pricesToAdd, value)
+			s.historicalPrices = append(s.historicalPrices, value)
+		}
+	}
+
+	return pricesToAdd
 }
 
 func (s *Stock) AddDividends(d ...Dividend) []Dividend {
